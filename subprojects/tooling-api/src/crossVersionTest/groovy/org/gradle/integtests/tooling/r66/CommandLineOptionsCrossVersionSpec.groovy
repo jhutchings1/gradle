@@ -46,6 +46,7 @@ class CommandLineOptionsCrossVersionSpec extends ToolingApiSpecification {
         result.standardOutput.contains("max workers: 12")
     }
 
+    @TargetGradleVersion(">=6.6")
     def "can specify options using system properties defined as command-line arguments"() {
         when:
         def result = withBuild { BuildLauncher launcher ->
@@ -56,6 +57,7 @@ class CommandLineOptionsCrossVersionSpec extends ToolingApiSpecification {
         result.standardOutput.contains("max workers: 12")
     }
 
+    @TargetGradleVersion(">=6.6")
     def "can specify options using system properties defined in JVM arguments"() {
         when:
         def result = withBuild { BuildLauncher launcher ->
@@ -76,6 +78,7 @@ class CommandLineOptionsCrossVersionSpec extends ToolingApiSpecification {
         result.standardOutput.contains("max workers: 12")
     }
 
+    @TargetGradleVersion(">=6.6")
     def "command-line system properties take precedence over JVM arg system properties"() {
         when:
         def result = withBuild { BuildLauncher launcher ->
@@ -87,7 +90,7 @@ class CommandLineOptionsCrossVersionSpec extends ToolingApiSpecification {
         result.standardOutput.contains("max workers: 12")
     }
 
-    @TargetGradleVersion(">=6.6") // This was fixed in 6.6
+    @TargetGradleVersion(">=6.6")
     def "command-line system properties take precedence over properties file"() {
         when:
         file("gradle.properties") << "org.gradle.workers.max=4"
@@ -99,7 +102,7 @@ class CommandLineOptionsCrossVersionSpec extends ToolingApiSpecification {
         result.standardOutput.contains("max workers: 12")
     }
 
-    @TargetGradleVersion(">=6.6") // This was fixed in 6.6
+    @TargetGradleVersion(">=6.6")
     def "JVM arg system properties take precedence over properties file"() {
         when:
         file("gradle.properties") << "org.gradle.workers.max=4"
