@@ -117,19 +117,17 @@ class DaemonParametersTest extends Specification {
 
     def "can enable the daemon"() {
         when:
-        def daemonParameters = parameters()
-        daemonParameters.setEnabled(true)
+        parameters.setEnabled(true)
 
         then:
-        daemonParameters.enabled
+        parameters.enabled
     }
 
     def "can explicitly disable the daemon"() {
         when:
-        def daemonParameters = parameters()
-        daemonParameters.setEnabled(false)
+        parameters.setEnabled(false)
 
         then:
-        !daemonParameters.enabled
+        !parameters.enabled
     }
 }

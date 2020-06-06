@@ -17,7 +17,6 @@
 package org.gradle.launcher.cli.converter
 
 import org.gradle.cli.CommandLineParser
-import org.gradle.cli.ParsedCommandLine
 import org.gradle.initialization.BuildLayoutParameters
 import org.gradle.initialization.layout.BuildLayoutFactory
 import org.gradle.launcher.configuration.BuildLayoutResult
