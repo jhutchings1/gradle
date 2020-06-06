@@ -40,21 +40,21 @@ public class StartParameterConverter {
         buildOptionsConverter.configure(parser);
     }
 
-    public StartParameterInternal convert(ParsedCommandLine options, BuildLayoutConverter.Result buildLayout, LayoutToPropertiesConverter.Result properties, StartParameterInternal startParameter) throws CommandLineArgumentException {
+    public StartParameterInternal convert(ParsedCommandLine parsedCommandLine, BuildLayoutResult buildLayout, AllProperties properties, StartParameterInternal startParameter) throws CommandLineArgumentException {
         buildLayout.applyTo(startParameter);
 
-        loggingConfigurationCommandLineConverter.convert(options, properties.getProperties(), startParameter);
-        parallelConfigurationCommandLineConverter.convert(options, properties.getProperties(), startParameter);
+        loggingConfigurationCommandLineConverter.convert(parsedCommandLine, properties, startParameter);
+        parallelConfigurationCommandLineConverter.convert(parsedCommandLine, properties, startParameter);
 
-        buildLayout.collectSystemPropertiesInto(startParameter.getSystemPropertiesArgs());
+        startParameter.getSystemPropertiesArgs().putAll(properties.getRequestedSystemProperties());
 
-        projectPropertiesCommandLineConverter.convert(options, startParameter.getProjectProperties());
+        projectPropertiesCommandLineConverter.convert(parsedCommandLine, startParameter.getProjectProperties());
 
-        if (!options.getExtraArguments().isEmpty()) {
-            startParameter.setTaskNames(options.getExtraArguments());
+        if (!parsedCommandLine.getExtraArguments().isEmpty()) {
+            startParameter.setTaskNames(parsedCommandLine.getExtraArguments());
         }
 
-        buildOptionsConverter.convert(options, properties.getProperties(), startParameter);
+        buildOptionsConverter.convert(parsedCommandLine, properties, startParameter);
 
         return startParameter;
     }

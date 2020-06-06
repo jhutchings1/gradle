@@ -57,7 +57,7 @@ public class LayoutToPropertiesConverter {
         allBuildOptions.addAll(new ParallelismBuildOptions().getAllOptions());
     }
 
-    public Result convert(BuildLayoutConverter.Result layout) {
+    public AllProperties convert(InitialProperties initialProperties, BuildLayoutResult layout) {
         BuildLayoutParameters layoutParameters = new BuildLayoutParameters();
         layout.applyTo(layoutParameters);
         Map<String, String> properties = new HashMap<>();
@@ -65,8 +65,8 @@ public class LayoutToPropertiesConverter {
         configureFromBuildDir(layoutParameters.getSearchDir(), layoutParameters.getSearchUpwards(), properties);
         configureFromHomeDir(layout.getGradleUserHomeDir(), properties);
         configureFromSystemPropertiesOfThisJvm(Cast.uncheckedNonnullCast(properties));
-        layout.collectSystemPropertiesInto(properties);
-        return new Result(Collections.unmodifiableMap(properties), layout);
+        properties.putAll(initialProperties.getRequestedSystemProperties());
+        return new Result(properties, initialProperties);
     }
 
     private void configureFromSystemPropertiesOfThisJvm(Map<Object, Object> properties) {
@@ -116,27 +116,31 @@ public class LayoutToPropertiesConverter {
         }
     }
 
-    /**
-     * Immutable properties to use to calculate build option values.
-     */
-    public static class Result {
+    private static class Result implements AllProperties {
         private final Map<String, String> properties;
-        private final BuildLayoutConverter.Result buildLayout;
+        private final InitialProperties initialProperties;
 
-        public Result(Map<String, String> properties, BuildLayoutConverter.Result buildLayout) {
+        public Result(Map<String, String> properties, InitialProperties initialProperties) {
             this.properties = properties;
-            this.buildLayout = buildLayout;
+            this.initialProperties = initialProperties;
         }
 
+        @Override
+        public Map<String, String> getRequestedSystemProperties() {
+            return initialProperties.getRequestedSystemProperties();
+        }
+
+        @Override
         public Map<String, String> getProperties() {
-            return properties;
+            return Collections.unmodifiableMap(properties);
         }
 
+        @Override
         public Result merge(Map<String, String> systemProperties) {
             Map<String, String> properties = new HashMap<>(this.properties);
             properties.putAll(systemProperties);
-            buildLayout.collectSystemPropertiesInto(properties);
-            return new Result(Collections.unmodifiableMap(properties), buildLayout);
+            properties.putAll(initialProperties.getRequestedSystemProperties());
+            return new Result(properties, initialProperties);
         }
     }
 }
