@@ -20,6 +20,7 @@ import org.gradle.cli.CommandLineConverter;
 import org.gradle.cli.CommandLineParser;
 import org.gradle.cli.ParsedCommandLine;
 import org.gradle.cli.SystemPropertiesCommandLineConverter;
+import org.gradle.launcher.configuration.InitialProperties;
 
 import java.util.Collections;
 import java.util.HashMap;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.gradle.launcher.cli.converter;
+package org.gradle.launcher.configuration;
 
 import java.util.Map;
 

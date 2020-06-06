@@ -17,7 +17,7 @@
 package org.gradle.launcher.cli;
 
 import org.gradle.api.internal.StartParameterInternal;
-import org.gradle.launcher.cli.converter.BuildLayoutResult;
+import org.gradle.launcher.configuration.BuildLayoutResult;
 import org.gradle.launcher.daemon.configuration.DaemonParameters;
 
 public class Parameters {

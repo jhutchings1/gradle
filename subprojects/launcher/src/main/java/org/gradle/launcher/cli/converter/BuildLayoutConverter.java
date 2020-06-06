@@ -23,6 +23,8 @@ import org.gradle.cli.ParsedCommandLine;
 import org.gradle.initialization.BuildLayoutParameters;
 import org.gradle.initialization.BuildLayoutParametersBuildOptions;
 import org.gradle.initialization.LayoutCommandLineConverter;
+import org.gradle.launcher.configuration.BuildLayoutResult;
+import org.gradle.launcher.configuration.InitialProperties;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -49,7 +51,6 @@ public class BuildLayoutConverter {
         BuildLayoutParameters layoutParameters = new BuildLayoutParameters();
         if (workingDir != null) {
             layoutParameters.setCurrentDir(workingDir);
-            layoutParameters.setProjectDir(workingDir);
         }
         defaults.accept(layoutParameters);
         Map<String, String> requestedSystemProperties = systemProperties.getRequestedSystemProperties();

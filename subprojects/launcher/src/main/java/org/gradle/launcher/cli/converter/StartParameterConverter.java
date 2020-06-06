@@ -25,6 +25,8 @@ import org.gradle.concurrent.ParallelismConfiguration;
 import org.gradle.initialization.ParallelismBuildOptions;
 import org.gradle.initialization.StartParameterBuildOptions;
 import org.gradle.internal.logging.LoggingConfigurationBuildOptions;
+import org.gradle.launcher.configuration.AllProperties;
+import org.gradle.launcher.configuration.BuildLayoutResult;
 
 public class StartParameterConverter {
     private final BuildOptionBackedConverter<LoggingConfiguration> loggingConfigurationCommandLineConverter = new BuildOptionBackedConverter<>(new LoggingConfigurationBuildOptions());

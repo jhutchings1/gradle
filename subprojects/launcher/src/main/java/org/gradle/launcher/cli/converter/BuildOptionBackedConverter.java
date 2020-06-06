@@ -19,6 +19,7 @@ package org.gradle.launcher.cli.converter;
 import org.gradle.cli.CommandLineParser;
 import org.gradle.cli.ParsedCommandLine;
 import org.gradle.internal.buildoption.BuildOptionSet;
+import org.gradle.launcher.configuration.AllProperties;
 
 public class BuildOptionBackedConverter<T> {
     private final BuildOptionSet<T> buildOptions;

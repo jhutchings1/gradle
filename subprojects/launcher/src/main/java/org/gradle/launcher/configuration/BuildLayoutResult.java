@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.gradle.launcher.cli.converter;
+package org.gradle.launcher.configuration;
 
 import org.gradle.api.internal.StartParameterInternal;
 import org.gradle.initialization.BuildLayoutParameters;

@@ -21,7 +21,7 @@ import org.gradle.api.internal.file.FileCollectionFactory;
 import org.gradle.internal.jvm.GroovyJpmsWorkarounds;
 import org.gradle.internal.jvm.JavaInfo;
 import org.gradle.internal.jvm.Jvm;
-import org.gradle.launcher.cli.converter.BuildLayoutResult;
+import org.gradle.launcher.configuration.BuildLayoutResult;
 import org.gradle.util.GUtil;
 
 import javax.annotation.Nullable;

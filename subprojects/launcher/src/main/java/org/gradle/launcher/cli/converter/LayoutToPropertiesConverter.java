@@ -28,6 +28,9 @@ import org.gradle.initialization.layout.BuildLayoutFactory;
 import org.gradle.internal.Cast;
 import org.gradle.internal.buildoption.BuildOption;
 import org.gradle.internal.logging.LoggingConfigurationBuildOptions;
+import org.gradle.launcher.configuration.AllProperties;
+import org.gradle.launcher.configuration.BuildLayoutResult;
+import org.gradle.launcher.configuration.InitialProperties;
 import org.gradle.launcher.daemon.configuration.DaemonBuildOptions;
 import org.gradle.util.CollectionUtils;
 

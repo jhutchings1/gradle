@@ -21,7 +21,7 @@ import org.gradle.api.logging.configuration.LoggingConfiguration;
 import org.gradle.internal.logging.LoggingManagerInternal;
 import org.gradle.internal.nativeintegration.services.NativeServices;
 import org.gradle.launcher.bootstrap.ExecutionListener;
-import org.gradle.launcher.cli.converter.BuildLayoutResult;
+import org.gradle.launcher.configuration.BuildLayoutResult;
 
 public class NativeServicesInitializingAction implements Action<ExecutionListener> {
 
