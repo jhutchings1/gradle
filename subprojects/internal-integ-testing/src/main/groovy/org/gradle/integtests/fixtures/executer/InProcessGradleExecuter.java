@@ -333,10 +333,8 @@ public class InProcessGradleExecuter extends DaemonGradleExecuter {
         FileCollectionFactory fileCollectionFactory = TestFiles.fileCollectionFactory();
         ParametersConverter parametersConverter = new ParametersConverter(buildLayoutFactory, fileCollectionFactory);
         parametersConverter.configure(parser);
-        final Parameters parameters = new Parameters(fileCollectionFactory);
+        Parameters parameters = parametersConverter.convert(parser.parse(getAllArgs()));
         parameters.getStartParameter().setCurrentDir(getWorkingDir());
-        parameters.getLayout().setCurrentDir(getWorkingDir());
-        parametersConverter.convert(parser.parse(getAllArgs()), parameters);
 
         BuildActionExecuter<BuildActionParameters> actionExecuter = GLOBAL_SERVICES.get(BuildActionExecuter.class);
 

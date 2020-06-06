@@ -16,6 +16,7 @@
 
 package org.gradle.launcher.cli;
 
+import org.gradle.api.internal.StartParameterInternal;
 import org.gradle.api.internal.file.FileCollectionFactory;
 import org.gradle.cli.CommandLineArgumentException;
 import org.gradle.cli.CommandLineParser;
@@ -64,18 +65,18 @@ public class ParametersConverter {
             fileCollectionFactory);
     }
 
-    public Parameters convert(ParsedCommandLine args, Parameters target) throws CommandLineArgumentException {
+    public Parameters convert(ParsedCommandLine args) throws CommandLineArgumentException {
         InitialProperties initialProperties = initialPropertiesConverter.convert(args);
         BuildLayoutResult buildLayout = buildLayoutConverter.convert(initialProperties, args);
         AllProperties properties = layoutToPropertiesConverter.convert(initialProperties, buildLayout);
 
-        startParameterConverter.convert(args, buildLayout, properties, target.getStartParameter());
+        StartParameterInternal startParameter = new StartParameterInternal();
+        startParameterConverter.convert(args, buildLayout, properties, startParameter);
 
         DaemonParameters daemonParameters = new DaemonParameters(buildLayout, fileCollectionFactory, properties.getRequestedSystemProperties());
         daemonParametersConverter.convert(args, properties, daemonParameters);
-        target.setDaemonParameters(daemonParameters);
 
-        return target;
+        return new Parameters(buildLayout, startParameter, daemonParameters);
     }
 
     public void configure(CommandLineParser parser) {

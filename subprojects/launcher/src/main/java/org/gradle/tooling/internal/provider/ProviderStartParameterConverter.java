@@ -24,6 +24,7 @@ import org.gradle.internal.DefaultTaskExecutionRequest;
 import org.gradle.launcher.cli.converter.AllProperties;
 import org.gradle.launcher.cli.converter.BuildLayoutConverter;
 import org.gradle.launcher.cli.converter.BuildLayoutResult;
+import org.gradle.launcher.cli.converter.InitialPropertiesConverter;
 import org.gradle.launcher.cli.converter.StartParameterConverter;
 import org.gradle.tooling.internal.protocol.InternalLaunchable;
 import org.gradle.tooling.internal.protocol.exceptions.InternalUnsupportedBuildArgumentException;
@@ -69,6 +70,7 @@ class ProviderStartParameterConverter {
         List<String> arguments = parameters.getArguments();
         StartParameterConverter converter = new StartParameterConverter();
         CommandLineParser parser = new CommandLineParser();
+        new InitialPropertiesConverter().configure(parser);
         new BuildLayoutConverter().configure(parser);
         converter.configure(parser);
         ParsedCommandLine parsedCommandLine;
