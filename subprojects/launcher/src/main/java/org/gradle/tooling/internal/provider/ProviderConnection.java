@@ -288,6 +288,7 @@ public class ProviderConnection {
             if (searchUpwards != null) {
                 layout.setSearchUpwards(searchUpwards);
             }
+            layout.setProjectDir(operationParameters.getProjectDir());
         });
 
         AllProperties properties = new LayoutToPropertiesConverter(buildLayoutFactory).convert(initialProperties, buildLayoutResult);
