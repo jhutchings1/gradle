@@ -217,7 +217,7 @@ public class DefaultCommandLineActionFactory implements CommandLineActionFactory
                 InitialProperties initialProperties = propertiesConverter.convert(parsedCommandLine);
 
                 // Calculate build layout, for loading properties and other logging configuration
-                buildLayout = buildLayoutConverter.convert(initialProperties, parsedCommandLine);
+                buildLayout = buildLayoutConverter.convert(initialProperties, parsedCommandLine, null);
 
                 // Read *.properties files
                 AllProperties properties = layoutToPropertiesConverter.convert(initialProperties, buildLayout);

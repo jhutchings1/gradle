@@ -33,6 +33,9 @@ import org.gradle.launcher.cli.converter.StartParameterConverter;
 import org.gradle.launcher.daemon.configuration.DaemonBuildOptions;
 import org.gradle.launcher.daemon.configuration.DaemonParameters;
 
+import javax.annotation.Nullable;
+import java.io.File;
+
 public class ParametersConverter {
 
     private final InitialPropertiesConverter initialPropertiesConverter;
@@ -65,9 +68,9 @@ public class ParametersConverter {
             fileCollectionFactory);
     }
 
-    public Parameters convert(ParsedCommandLine args) throws CommandLineArgumentException {
+    public Parameters convert(ParsedCommandLine args, @Nullable File currentDir) throws CommandLineArgumentException {
         InitialProperties initialProperties = initialPropertiesConverter.convert(args);
-        BuildLayoutResult buildLayout = buildLayoutConverter.convert(initialProperties, args);
+        BuildLayoutResult buildLayout = buildLayoutConverter.convert(initialProperties, args, currentDir);
         AllProperties properties = layoutToPropertiesConverter.convert(initialProperties, buildLayout);
 
         StartParameterInternal startParameter = new StartParameterInternal();

@@ -24,6 +24,7 @@ import org.gradle.initialization.BuildLayoutParameters;
 import org.gradle.initialization.BuildLayoutParametersBuildOptions;
 import org.gradle.initialization.LayoutCommandLineConverter;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -39,13 +40,17 @@ public class BuildLayoutConverter {
         return new Result(new BuildLayoutParameters());
     }
 
-    public BuildLayoutResult convert(InitialProperties systemProperties, ParsedCommandLine commandLine) {
-        return convert(systemProperties, commandLine, parameters -> {
+    public BuildLayoutResult convert(InitialProperties systemProperties, ParsedCommandLine commandLine, @Nullable File workingDir) {
+        return convert(systemProperties, commandLine, workingDir, parameters -> {
         });
     }
 
-    public BuildLayoutResult convert(InitialProperties systemProperties, ParsedCommandLine commandLine, Consumer<BuildLayoutParameters> defaults) {
+    public BuildLayoutResult convert(InitialProperties systemProperties, ParsedCommandLine commandLine, @Nullable File workingDir, Consumer<BuildLayoutParameters> defaults) {
         BuildLayoutParameters layoutParameters = new BuildLayoutParameters();
+        if (workingDir != null) {
+            layoutParameters.setCurrentDir(workingDir);
+            layoutParameters.setProjectDir(workingDir);
+        }
         defaults.accept(layoutParameters);
         Map<String, String> requestedSystemProperties = systemProperties.getRequestedSystemProperties();
         new BuildLayoutParametersBuildOptions().propertiesConverter().convert(requestedSystemProperties, layoutParameters);

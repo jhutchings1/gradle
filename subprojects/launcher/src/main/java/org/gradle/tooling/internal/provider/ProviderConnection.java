@@ -280,7 +280,7 @@ public class ProviderConnection {
         ParsedCommandLine parsedCommandLine = commandLineParser.parse(operationParameters.getArguments() == null ? Collections.emptyList() : operationParameters.getArguments());
 
         InitialProperties initialProperties = initialPropertiesConverter.convert(parsedCommandLine);
-        BuildLayoutResult buildLayoutResult = buildLayoutConverter.convert(initialProperties, parsedCommandLine, layout -> {
+        BuildLayoutResult buildLayoutResult = buildLayoutConverter.convert(initialProperties, parsedCommandLine, operationParameters.getProjectDir(), layout -> {
             if (operationParameters.getGradleUserHomeDir() != null) {
                 layout.setGradleUserHomeDir(operationParameters.getGradleUserHomeDir());
             }
@@ -288,8 +288,6 @@ public class ProviderConnection {
             if (searchUpwards != null) {
                 layout.setSearchUpwards(searchUpwards);
             }
-            layout.setCurrentDir(operationParameters.getProjectDir());
-            layout.setProjectDir(operationParameters.getProjectDir());
         });
 
         AllProperties properties = new LayoutToPropertiesConverter(buildLayoutFactory).convert(initialProperties, buildLayoutResult);
